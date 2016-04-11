@@ -42,4 +42,9 @@
  
         <source-file src="src/android/com/cordova/plugins/cookiemaster/CookieMaster.java" target-dir="src/com/cordova/plugins/cookiemaster" />      
     </platform>          
+    <platform name="windows">
+        <js-module src="src/windows/CookieMasterProxy.js" name="CookieMaster">
+            <merges target="" />
+        </js-module>
+    </platform>
 </plugin>
