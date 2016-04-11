@@ -16,7 +16,23 @@ cordova.commandProxy.add("CookieMaster",{
         }
     },
     getCookieValue :function(successCallback, errorCallback, args) {
-        errorCallback();
+        if (!args || !args.length) {
+            errorCallback();
+        }
+        else {
+            var filter = new Windows.Web.Http.Filters.HttpBaseProtocolFilter();
+            var cookieManager = filter.cookieManager;
+            var cookieCollection = cookieManager.getCookies(new Windows.Foundation.Uri(args[0]));
+            var httpCookie;
+            for (var i = 0; i < cookieCollection.size ; i++) {
+                httpCookie = cookieCollection.getAt(i);
+                if (httpCookie.name === args[1]) {
+                    var data = [];
+                    data.cookieValue = httpCookie.value;
+                    successCallback(data);
+                }
+            }
+        }
     },
     clearCookies :function(successCallback, errorCallback, args) {
         errorCallback();
